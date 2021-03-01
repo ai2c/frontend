@@ -150,7 +150,7 @@ export function NavUI(props) {
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
-              libDrive
+              Toonfly
             </Typography>
           </Link>
           <form className={classes.search} onSubmit={searchSubmit}>
@@ -196,7 +196,7 @@ export function LoadingNavUI() {
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
-              libDrive
+              Toonfly
             </Typography>
           </Link>
           <form className={classes.search} onSubmit={searchSubmit}>
@@ -291,7 +291,7 @@ export function AccountMenu(props) {
       .then((response) =>
         Swal.fire({
           title: "Success!",
-          text: "libDrive's metadata is being rebuilt...",
+          text: "Toonfly's metadata is being rebuilt...",
           icon: "success",
           confirmButtonText: "OK",
         })
@@ -332,7 +332,7 @@ export function AccountMenu(props) {
         } else if (error.request) {
           Swal.fire({
             title: "Error!",
-            text: `libDrive could not communicate with the backend! Is ${server} the correct address?`,
+            text: `Toonfly could not communicate with the backend! Is ${server} the correct address?`,
             icon: "error",
             confirmButtonText: "Logout",
             cancelButtonText: "Retry",
