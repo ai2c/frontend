@@ -25,6 +25,30 @@ import axios from "axios";
 
 import { theme, guid } from "../components";
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+
 export default class Nav extends Component {
   constructor(props) {
     super(props);
@@ -131,31 +155,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-
-function HideOnScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export function NavUI(props) {
+export function NavUI (props){
   const classes = styles();
 
   const [search, setSearch] = useState("");
@@ -201,7 +201,55 @@ export function NavUI(props) {
       </HideOnScroll>
     </div>
   );
-}
+ }
+
+ export default function HideAppBar (props) {
+  const classes = styles();
+
+  const [search, setSearch] = useState("");
+  const searchChange = (evt) => {
+    setSearch(evt.target.value);
+  };
+
+  const searchSubmit = (evt) => {
+    evt.preventDefault();
+    window.location.hash = `#/search/${search}`;
+  };
+
+  return (
+    <div className={classes.grow}>
+      <HideOnScroll {...props}>
+      <AppBar position="fixed" className={classes.root}>
+        <Toolbar>
+          <Link to="/" className="no_decoration_link">
+            <Typography className={classes.title} variant="h6" noWrap>
+              Toonfly
+            </Typography>
+          </Link>
+          <form className={classes.search} onSubmit={searchSubmit}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ "aria-label": "search" }}
+              onChange={searchChange}
+            />
+          </form>
+          <div className={classes.grow} />
+          <BrowseMenu props={props.props.categories} />
+          <ThemeMenu />
+          <AccountMenu props={props.props.accounts} />
+        </Toolbar>
+      </AppBar>
+      </HideOnScroll>
+    </div>
+  );
+ }
 
 export function LoadingNavUI() {
   const classes = styles();
@@ -219,7 +267,7 @@ export function LoadingNavUI() {
   return (
     <div className={classes.grow}>
       <HideOnScroll {...props}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
