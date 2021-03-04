@@ -130,7 +130,7 @@ const styles = makeStyles((theme) => ({
     marginRight: "15px",
   },
 
-  offset: theme.Toolbar
+  offset: theme.mixins.toolbar,
 }));
 
 export function NavUI (props){
