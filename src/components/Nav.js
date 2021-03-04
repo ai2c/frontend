@@ -80,8 +80,6 @@ const styles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
-    top: 'auto',
-    bottom: 0,
   },
   grow: {
     flexGrow: 1,
@@ -131,6 +129,8 @@ const styles = makeStyles((theme) => ({
   browse: {
     marginRight: "15px",
   },
+
+  offset: theme.Toolbar
 }));
 
 export function NavUI (props){
@@ -148,7 +148,6 @@ export function NavUI (props){
 
   return (
     <div className={classes.grow}>
-      <HideOnScroll {...props}>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
@@ -176,7 +175,7 @@ export function NavUI (props){
           <AccountMenu props={props.props.accounts} />
         </Toolbar>
       </AppBar>
-      </HideOnScroll>
+      <div className={classes.offset}></div>
     </div>
   );
  }
@@ -196,7 +195,6 @@ export function LoadingNavUI() {
 
   return (
     <div className={classes.grow}>
-      <HideOnScroll {...props}>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
@@ -220,7 +218,7 @@ export function LoadingNavUI() {
           </form>
         </Toolbar>
       </AppBar>
-      </HideOnScroll>
+      <div className={classes.offset}></div>
     </div>
   );
 }
