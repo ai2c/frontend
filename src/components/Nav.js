@@ -131,6 +131,30 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
+
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
 export function NavUI(props) {
   const classes = styles();
 
@@ -146,7 +170,8 @@ export function NavUI(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
+      <HideOnScroll {...props}>
+      <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
@@ -173,6 +198,7 @@ export function NavUI(props) {
           <AccountMenu props={props.props.accounts} />
         </Toolbar>
       </AppBar>
+      </HideOnScroll>
     </div>
   );
 }
@@ -192,6 +218,7 @@ export function LoadingNavUI() {
 
   return (
     <div className={classes.grow}>
+      <HideOnScroll {...props}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
@@ -215,6 +242,7 @@ export function LoadingNavUI() {
           </form>
         </Toolbar>
       </AppBar>
+      </HideOnScroll>
     </div>
   );
 }
