@@ -28,12 +28,11 @@ export default class View extends Component {
       auth: sessionStorage.getItem("auth") || localStorage.getItem("auth"),
       id: this.props.match.params.id,
       isLoaded: false,
-      loadedTime: new Date(),
       metadata: {},
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     let { auth, id, server } = this.state;
     let url = `${server}/api/v1/metadata?a=${auth}&id=${id}`;
 
@@ -154,7 +153,7 @@ export function MovieView(props) {
         <Plyr
           source={{
             type: "video",
-            poster: `${server}/api/v1/image/thumbnail?id=${metadata.id}` || "",
+            poster: metadata.backdropPath || `${server}/api/v1/image/thumbnail?id=${metadata.id}` || "",
             sources: [
               {
                 src: `${server}/api/v1/redirectdownload/${metadata.name}?a=${auth}&id=${id}&quality=transcoded`,
@@ -258,7 +257,7 @@ export function TVBView(props) {
 }
 
 export function TVSView(props) {
-  let { auth, id, metadata, server, thisprops } = props.props;
+  let { auth, metadata, server, thisprops } = props.props;
   let hash = parseInt(queryString.parse(thisprops.location.search).q) || 0;
 
   function isHash(n, hash) {
@@ -285,10 +284,11 @@ export function TVSView(props) {
       </Typography>
       <div className="plyr__component">
         <Plyr
+          preload="none"
           source={{
             type: "video",
             poster:
-              `${server}/api/v1/image/thumbnail?id=${metadata.children[hash].id}` ||
+              metadata.backdropPath || `${server}/api/v1/image/thumbnail?id=${metadata.children[hash].id}` ||
               "",
             sources: [
               {

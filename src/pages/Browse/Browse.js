@@ -21,7 +21,7 @@ export default class Browse extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     let { auth, server } = this.state;
     let url = `${server}/api/v1/metadata?a=${auth}&r=0:16&s=popularity-des`;
 
@@ -102,7 +102,7 @@ export default class Browse extends Component {
     } else {
       sessionStorage.setItem("gallery", "carousel");
       localStorage.setItem("gallery", "carousel");
-      gallery = false;
+      gallery = true;
     }
 
     return isLoaded ? (

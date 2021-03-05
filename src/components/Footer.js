@@ -35,15 +35,15 @@ export default function Footer() {
     window.location.reload();
   };
   let gallery =
-    sessionStorage.getItem("gallery") || localStorage.getItem("gallery") || "carousel";
+    sessionStorage.getItem("gallery") || localStorage.getItem("gallery");
 
   return (
-    <footer className={classes.footer__container}>
+    <footer className={classes.footer__container} id="footer__container">
       <a href="https://github.com/libDrive/libDrive" target="_blank">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/62px-Font_Awesome_5_brands_github.svg.png"
+          src="/images/github.png"
           className="footer__github"
-          height="55px"
+          height="48px"
           alt="github-logo"
         />
       </a>
@@ -52,7 +52,7 @@ export default function Footer() {
         href="https://eliasbenb.github.io"
         target="_blank"
       >
-        © 2021 Copyright: Elias Benbourenane - v1.1.6
+        © 2021 Copyright: Elias Benbourenane - v1.1.9
       </a>
       <div className="gallery__select">
         <FormControl className={classes.formControl}>

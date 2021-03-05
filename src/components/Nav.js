@@ -38,7 +38,7 @@ export default class Nav extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     let { auth, server } = this.state;
     let url = `${server}/api/v1/environment?a=${auth}`;
 
@@ -129,11 +129,9 @@ const styles = makeStyles((theme) => ({
   browse: {
     marginRight: "15px",
   },
-
-  offset: theme.mixins.toolbar,
 }));
 
-export function NavUI (props){
+export function NavUI(props) {
   const classes = styles();
 
   const [search, setSearch] = useState("");
@@ -148,11 +146,11 @@ export function NavUI (props){
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" className={classes.root}>
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
-              Toonfly
+              libDrive
             </Typography>
           </Link>
           <form className={classes.search} onSubmit={searchSubmit}>
@@ -175,10 +173,9 @@ export function NavUI (props){
           <AccountMenu props={props.props.accounts} />
         </Toolbar>
       </AppBar>
-      <div className={classes.offset}></div>
     </div>
   );
- }
+}
 
 export function LoadingNavUI() {
   const classes = styles();
@@ -195,11 +192,11 @@ export function LoadingNavUI() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" className={classes.root}>
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Link to="/" className="no_decoration_link">
             <Typography className={classes.title} variant="h6" noWrap>
-              Toonfly
+              libDrive
             </Typography>
           </Link>
           <form className={classes.search} onSubmit={searchSubmit}>
@@ -218,7 +215,6 @@ export function LoadingNavUI() {
           </form>
         </Toolbar>
       </AppBar>
-      <div className={classes.offset}></div>
     </div>
   );
 }
@@ -295,7 +291,7 @@ export function AccountMenu(props) {
       .then((response) =>
         Swal.fire({
           title: "Success!",
-          text: "Toonfly's metadata is being rebuilt...",
+          text: "libDrive's metadata is being rebuilt...",
           icon: "success",
           confirmButtonText: "OK",
         })
@@ -336,7 +332,7 @@ export function AccountMenu(props) {
         } else if (error.request) {
           Swal.fire({
             title: "Error!",
-            text: `Toonfly could not communicate with the backend! Is ${server} the correct address?`,
+            text: `libDrive could not communicate with the backend! Is ${server} the correct address?`,
             icon: "error",
             confirmButtonText: "Logout",
             cancelButtonText: "Retry",
